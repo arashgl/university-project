@@ -26,8 +26,6 @@ import type {
   RayColliderHit,
   Vector,
 } from "@dimforge/rapier3d-compat";
-import React from "react";
-import { EcctrlProps } from "@/types/generals/motion.types.ts";
 
 export { EcctrlAnimation } from "./EcctrlAnimation.tsx";
 export { useFollowCam } from "./hooks/useFollowCam.tsx";
