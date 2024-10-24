@@ -1,6 +1,6 @@
 import { BallCollider } from "@react-three/rapier";
-import { useGLTF } from "@react-three/drei";
-import { useRef } from "react";
+import { useGLTF, useProgress } from "@react-three/drei";
+import { useEffect, useRef } from "react";
 import { Group, Object3DEventMap } from "three";
 import { useFrame } from "@react-three/fiber";
 import { useCheckSceneLoad } from "../../hooks/store/useCheckSceneLoad.ts";
@@ -13,7 +13,12 @@ export interface ICharacterProps {
 export const PlayerMouse = ({ model_url }: ICharacterProps) => {
   const characterFile = useGLTF(model_url || "/model/characters/01.gltf");
   const setLoad = useCheckSceneLoad((state) => state.setLoaded);
-  setLoad(true);
+  const { loaded } = useProgress();
+
+  useEffect(() => {
+    if (loaded) setLoad(true);
+  }, [loaded]);
+
   const action = useRef<{ current_action: string; prev_action: string }>({
     current_action: "idle",
     prev_action: "idle",

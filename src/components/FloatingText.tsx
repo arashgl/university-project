@@ -63,7 +63,7 @@ export const FloatingText = forwardRef<
           anchorX="center"
           anchorY="middle"
         >
-          Click Or Tap Here
+          Click or tap here to mint
         </DreiText>
       </mesh>
     </motion.group>

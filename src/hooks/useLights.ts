@@ -8,7 +8,7 @@ export const useLights = () => {
 
   const [lights, setLights] = useState<Object3D<THREE.Object3DEventMap>[]>([]);
 
-  const roomModel = useGLTF("/room-central.gltf", false, false, (progress) => {
+  const roomModel = useGLTF("/central.gltf", false, false, (progress) => {
     progress.manager.onLoad = () => {
       setLoading((prev) => prev + 1);
     };
