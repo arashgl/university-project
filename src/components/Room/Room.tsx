@@ -1,19 +1,21 @@
 import { Environment, useGLTF, useTexture } from "@react-three/drei";
-import { RigidBody } from "@react-three/rapier";
-import { useEffect, useState } from "react";
+import { CuboidCollider, RigidBody } from "@react-three/rapier";
+import { Suspense, useEffect, useState } from "react";
 import {
   BufferGeometry,
   Euler,
   Material,
   Mesh,
   MeshStandardMaterial,
+  Object3D,
+  Object3DEventMap,
   Vector3,
 } from "three";
 import Floor from "./Floor.tsx";
 import { RoomCentralLights } from "./RoomLights.tsx";
 import { useLights } from "../../hooks/useLights.ts";
+import { BoardsCollider } from "./BoardsCollider.tsx";
 
-import * as THREE from "three";
 export interface SceneItem {
   children?: SceneItem[];
   geometry?: BufferGeometry;
@@ -100,6 +102,7 @@ export const Room = () => {
         </RigidBody>
       )}
       <primitive object={scene} />
+      <BoardsCollider scene={scene} />
       <Floor />
     </group>
   );
