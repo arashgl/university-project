@@ -11,7 +11,7 @@ type BoardProps = {
 const mapping: Record<number, string> = {
   8: "https://arandao.xyz",
   9: "https://sepid.app",
-  11: "https://arusense.com",
+  10: "https://arusense.com",
   12: "https://redstartapply.com",
   13: "https://clinify.ir",
   14: "https://firemonitor.ir",
