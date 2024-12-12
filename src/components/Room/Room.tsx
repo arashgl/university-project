@@ -4,17 +4,16 @@ import { useEffect, useState } from "react";
 import {
   BufferGeometry,
   Euler,
-  LinearFilter,
   Material,
   Mesh,
   MeshStandardMaterial,
-  RepeatWrapping,
   Vector3,
 } from "three";
 import Floor from "./Floor.tsx";
 import { RoomCentralLights } from "./RoomLights.tsx";
 import { useLights } from "../../hooks/useLights.ts";
 
+import * as THREE from "three";
 export interface SceneItem {
   children?: SceneItem[];
   geometry?: BufferGeometry;
@@ -27,12 +26,18 @@ export interface SceneItem {
   receiveShadow?: boolean;
   [key: string]: any;
 }
-
 export const Room = () => {
   const { scene } = useGLTF("/central.gltf");
   const [collisionMesh, setCollisionMesh] = useState<Mesh | null>(null);
   const lights = useLights();
-  const screenTexture = useTexture("/1.jpeg");
+
+  const screenTexture1 = useTexture("/1.png");
+  const screenTexture2 = useTexture("/2.png");
+  const screenTexture3 = useTexture("/3.png");
+  const screenTexture4 = useTexture("/4.png");
+  const screenTexture5 = useTexture("/5.png");
+  const screenTexture6 = useTexture("/6.png");
+  const logo = useTexture("/logo.png");
 
   useEffect(() => {
     const mesh = scene.getObjectByName("MESH-COLLISION") as Mesh;
@@ -44,14 +49,42 @@ export const Room = () => {
         if (sceneItem.geometry && sceneItem.name == "MESH-COLLISION") {
           sceneItem.material = new MeshStandardMaterial({ visible: false });
         }
-        if (sceneItem instanceof Mesh && sceneItem.name == "MAIN-BOARD") {
-          screenTexture.wrapS = RepeatWrapping;
-          screenTexture.wrapT = RepeatWrapping;
-          screenTexture.repeat.set(1, 1);
-          screenTexture.flipY = true;
-          screenTexture.minFilter = LinearFilter;
-          sceneItem.material.map = screenTexture;
+        if (sceneItem instanceof Mesh) {
+          switch (sceneItem.name) {
+            case "BOARD008":
+              sceneItem.material.map = screenTexture1;
+
+              break;
+            case "BOARD009":
+              sceneItem.material.map = screenTexture2;
+
+              break;
+            case "BOARD010":
+              sceneItem.material.map = screenTexture3;
+
+              break;
+            case "BOARD012":
+              sceneItem.material.map = screenTexture4;
+
+              break;
+            case "BOARD013":
+              sceneItem.material.map = screenTexture5;
+
+              break;
+            case "BOARD014":
+              sceneItem.material.map = screenTexture6;
+              break;
+            case "POINT-SCREEN":
+              sceneItem.material.map = logo;
+              break;
+            default:
+              break;
+          }
         }
+
+        // if (sceneItem instanceof Mesh && sceneItem.name == "BOARD008") {
+        //   sceneItem.material.map = screenTexture;
+        // }
         return sceneItem;
       },
     );
